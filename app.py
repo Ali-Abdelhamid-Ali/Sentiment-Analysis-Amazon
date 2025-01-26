@@ -9,8 +9,9 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-# إعداد الـ Streamlit
+
 st.set_page_config(page_title="Sentiment Analysis", page_icon="😊", layout="wide")
+
 
 @st.cache_resource
 def load_model_and_tfidf():
