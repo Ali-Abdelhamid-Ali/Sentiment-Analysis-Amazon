@@ -1,9 +1,4 @@
 streamlit
-re
 nltk
-matplotlib.pyplot
-sklearn.feature_extraction.text
-sklearn.svm
-nltk.tokenize
-nltk.corpus
-nltk.stem
+matplotlib
+scikit-learn
