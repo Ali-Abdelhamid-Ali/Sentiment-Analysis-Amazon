@@ -12,21 +12,21 @@ from nltk.stem import WordNetLemmatizer
 # إعداد الـ Streamlit
 st.set_page_config(page_title="Sentiment Analysis", page_icon="😊", layout="wide")
 
-# تحميل النموذج و TF-IDF
 @st.cache_resource
 def load_model_and_tfidf():
-    with open(r"D:\AMIT\amit\ODC\W3\D1\sent ana\svc_model.pkl", 'rb') as f:
+
+    with open("\Sentiment Analysis Amazon\svc_model.pkl", 'rb') as f:
         svc_model = pickle.load(f)
     
-    with open(r"D:\AMIT\amit\ODC\W3\D1\sent ana\tfidf_vectorizer.pkl", 'rb') as f:
+    with open("\Sentiment Analysis Amazon\tfidf_vectorizer.pkl", 'rb') as f:
         tfidf = pickle.load(f)
         
     return svc_model, tfidf
 
-# تحميل النموذج
+
 svc_model, tfidf = load_model_and_tfidf()
 
-# إعداد NLTK
+
 stop_words = set(stopwords.words('english')) - {'not', 'no'}
 lemmatizer = WordNetLemmatizer()
 
@@ -42,7 +42,7 @@ def preprocess_text(text):
     text = clean_text(text)
     return tfidf.transform([text])
 
-# واجهة المستخدم باستخدام Streamlit
+
 st.title("📊 Sentiment Analysis with SVC and TF-IDF")
 
 st.sidebar.title("🔍 Input Options")
@@ -56,7 +56,7 @@ else:
 
 if st.button('🔍 Analyze Sentiment'):
     if user_text:
-        # معالج النصوص والتنبؤ
+     
         processed_text = preprocess_text(user_text)
         prediction = svc_model.predict(processed_text)
         
