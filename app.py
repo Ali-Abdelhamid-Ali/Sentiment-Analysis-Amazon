@@ -16,10 +16,10 @@ st.set_page_config(page_title="Sentiment Analysis", page_icon="😊", layout="wi
 @st.cache_resource
 def load_model_and_tfidf():
 
-    with open("\Sentiment Analysis Amazon\svc_model.pkl", 'rb') as f:
+    with open(r"D:\AMIT\amit\ODC\W3\D1\Sentiment Analysis Amazon\svc_model.pkl", 'rb') as f:
         svc_model = pickle.load(f)
     
-    with open("\Sentiment Analysis Amazon\tfidf_vectorizer.pkl", 'rb') as f:
+    with open(r"D:\AMIT\amit\ODC\W3\D1\Sentiment Analysis Amazon\tfidf_vectorizer.pkl", 'rb') as f:
         tfidf = pickle.load(f)
         
     return svc_model, tfidf
@@ -69,7 +69,7 @@ if st.button('🔍 Analyze Sentiment'):
         st.markdown("### 📈 Visual Result:")
         fig, ax = plt.subplots(figsize=(6, 3))
         prediction_value = float(svc_model.decision_function(processed_text))
-        ax.bar(["Positive 😊", "Negative 😞"], [prediction_value, 1 - prediction_value], color=["green", "red"])
+        ax.bar(["Negative 😞","Positive 😊" ], [prediction_value, 1 - prediction_value], color=["green", "red"])
         ax.set_ylabel('Value')
         ax.set_title('Sentiment Analysis')
         st.pyplot(fig)
