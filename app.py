@@ -6,7 +6,6 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-
 st.set_page_config(page_title="Sentiment Analysis", page_icon="😊", layout="wide")
 
 @st.cache_resource
@@ -37,7 +36,7 @@ def preprocess_text(text):
     text = clean_text(text)
     return tfidf.transform([text])
 
-st.title("📊 Sentiment Analysis with SVC ")
+st.title("📊 Sentiment Analysis with SVC and TF-IDF")
 user_text = st.text_area("✍️ Enter your text here:")
 
 if st.button('🔍 Analyze Sentiment'):
