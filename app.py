@@ -1,17 +1,13 @@
 import streamlit as st
 import pickle
 import re
-import nltk
 import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.svm import SVC
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
 
 st.set_page_config(page_title="Sentiment Analysis", page_icon="😊", layout="wide")
-
 
 @st.cache_resource
 def load_model_and_tfidf():
@@ -24,9 +20,7 @@ def load_model_and_tfidf():
         
     return svc_model, tfidf
 
-
 svc_model, tfidf = load_model_and_tfidf()
-
 
 stop_words = set(stopwords.words('english')) - {'not', 'no'}
 lemmatizer = WordNetLemmatizer()
@@ -43,21 +37,11 @@ def preprocess_text(text):
     text = clean_text(text)
     return tfidf.transform([text])
 
-
-st.title("📊 Sentiment Analysis with SVC and TF-IDF")
-
-st.sidebar.title("🔍 Input Options")
-input_type = st.sidebar.radio("Choose input type:", ("📝 Direct Text", "📌 Predefined Text"))
-
-if input_type == "📝 Direct Text":
-    user_text = st.text_area("✍️ Enter your text here:")
-else:
-    user_text = st.selectbox("🔹 Choose a sentence:", 
-                              ["This is a great movie!", "I hated this film.", "It was an amazing experience!"])
+st.title("📊 Sentiment Analysis with SVC ")
+user_text = st.text_area("✍️ Enter your text here:")
 
 if st.button('🔍 Analyze Sentiment'):
     if user_text:
-     
         processed_text = preprocess_text(user_text)
         prediction = svc_model.predict(processed_text)
         
@@ -69,7 +53,7 @@ if st.button('🔍 Analyze Sentiment'):
         st.markdown("### 📈 Visual Result:")
         fig, ax = plt.subplots(figsize=(6, 3))
         prediction_value = float(svc_model.decision_function(processed_text))
-        ax.bar(["Negative 😞","Positive 😊" ], [prediction_value, 1 - prediction_value], color=["green", "red"])
+        ax.bar(["Positive 😊","Negative 😞"], [prediction_value, 1 - prediction_value], color=["green", "red"])
         ax.set_ylabel('Value')
         ax.set_title('Sentiment Analysis')
         st.pyplot(fig)
