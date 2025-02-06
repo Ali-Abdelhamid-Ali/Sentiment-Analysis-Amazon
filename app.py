@@ -11,10 +11,10 @@ st.set_page_config(page_title="Sentiment Analysis", page_icon="😊", layout="wi
 
 @st.cache_resource
 def load_model_and_tfidf():
-    dirname = os.path.dirname(os.path.abspath(__file__))  
+    dirname = os.path.dirname(os.path.abspath(__file__))
     svc_model_path = os.path.join(dirname, "svc_model.pkl")
     tfidf_path = os.path.join(dirname, "tfidf_vectorizer.pkl")
-
+    
     with open(svc_model_path, "rb") as f:
         svc_model = pickle.load(f)
     
@@ -22,8 +22,6 @@ def load_model_and_tfidf():
         tfidf = pickle.load(f)
 
     return svc_model, tfidf
-
-svc_model, tfidf = load_model_and_tfidf()
 
 stop_words = set(stopwords.words('english')) - {'not', 'no'}
 lemmatizer = WordNetLemmatizer()
