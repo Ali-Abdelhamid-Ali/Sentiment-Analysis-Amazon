@@ -7,25 +7,14 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import os
 
-# إعدادات الصفحة
 st.set_page_config(page_title="Sentiment Analysis", page_icon="😊", layout="wide")
 
 @st.cache_resource
 def load_model_and_tfidf():
-    # تحديد المسارات بشكل نسبي بناءً على مكان الملف الحالي
-    dirname = os.path.dirname(os.path.abspath(__file__))  # الحصول على مسار الملف الحالي
-    # تأكد من أن المسار لا يحتوي على تكرار في المجلدات
+    dirname = os.path.dirname(os.path.abspath(__file__))  
     svc_model_path = os.path.join(dirname, "svc_model.pkl")
     tfidf_path = os.path.join(dirname, "tfidf_vectorizer.pkl")
 
-    # فحص وجود الملفات
-    if not os.path.exists(svc_model_path):
-        raise FileNotFoundError(f"Model file not found: {svc_model_path}")
-    
-    if not os.path.exists(tfidf_path):
-        raise FileNotFoundError(f"TF-IDF file not found: {tfidf_path}")
-    
-    # تحميل الموديل و الـ TF-IDF
     with open(svc_model_path, "rb") as f:
         svc_model = pickle.load(f)
     
@@ -34,10 +23,8 @@ def load_model_and_tfidf():
 
     return svc_model, tfidf
 
-# تحميل الموديلات
 svc_model, tfidf = load_model_and_tfidf()
 
-# إعدادات التنظيف والمعالجة
 stop_words = set(stopwords.words('english')) - {'not', 'no'}
 lemmatizer = WordNetLemmatizer()
 
@@ -53,7 +40,6 @@ def preprocess_text(text):
     text = clean_text(text)
     return tfidf.transform([text])  
 
-# واجهة المستخدم
 st.title("📊 Sentiment Analysis with SVC and TF-IDF")
 user_text = st.text_area("✍️ Enter your text here:")
 

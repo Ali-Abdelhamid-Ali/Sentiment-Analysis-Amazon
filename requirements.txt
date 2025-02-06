@@ -1,4 +1,4 @@
 streamlit
-re
+pickle-mixin
 matplotlib
 nltk
